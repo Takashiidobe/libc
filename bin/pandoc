@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+for f in $(find "docs/md" -name "*.md"); do
+  pandoc $f -o "docs/html/src/collections/$(basename $f .c.md).html" --template="./_template.html"    
+done

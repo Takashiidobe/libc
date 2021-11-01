@@ -1,0 +1,6 @@
+build/
+man/
+html/
+pdf/
+test/out/*
+scratch/

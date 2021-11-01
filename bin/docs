@@ -1,0 +1,16 @@
+#!/usr/bin/env python3 
+from pathlib import Path
+import os
+from os.path import dirname
+
+for path in Path('src').rglob('*.c'):
+    comments = []
+    os.makedirs(f'docs/md/{dirname(path)}', exist_ok=True)
+    with open(path, 'r') as f:
+        for l in f:
+            if l.startswith('// '):
+                comments.append(l[3:])
+
+    with open(f'docs/md/{path}.md', 'w+') as f:
+        for comment in comments:
+            f.write(comment)

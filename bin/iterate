@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+import os
+
+h = set()
+
+s = """# Table of Contents
+
+## Top Level
+
+"""
+
+for root, dirs, files in os.walk("docs"):
+    dirs.sort()
+    files.sort()
+    for name in files:
+        rel_dir = os.path.relpath(root, ".")
+        file_name = os.path.join(rel_dir, name)
+        if file_name.lower().endswith(('.md')):
+            if file_name.lower().endswith('index.md'):
+                continue
+            split_file_name = file_name.split('.')
+            if root[5:] not in h:
+                h.add(root[5:])
+                if root[5:]:
+                    s += f"\n## {root[5:].title().replace('-', ' ').replace('/', ' > ')}\n\n"
+            title_string = name.replace("-", " ").replace("_", " ")
+            s += f"- [{title_string.split('.')[0]}]({file_name[5:]})\n"
+
+with open('docs/index.md', 'w+') as f:
+    f.write(s)

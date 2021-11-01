@@ -1,0 +1,4 @@
+[build]
+publish = "html/docs/"
+command = "make"
+
